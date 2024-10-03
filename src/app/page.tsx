@@ -3,6 +3,7 @@
 import { FormEvent, KeyboardEvent, useState } from 'react';
 import { getRevisedText } from './services/grammar-service';
 import { getPhoneMask } from './utils/masks';
+import Example from './components/modal-example';
 
 const getTextRevisedByForm = async (target: HTMLFormElement) => {
   const formData = Object.fromEntries(new FormData(target).entries());
@@ -40,6 +41,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 py-8">
+      <Example />
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
         <h1 className="text-black text-3xl font-bold text-center mb-6">Gerador de Currículos</h1>
         <form onSubmit={onSubmitForm}>
