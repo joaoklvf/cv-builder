@@ -3,7 +3,16 @@ export interface Resume {
   email: string,
   phone: string,
   summary: string,
-  experience: string,
-  education: string,
+  experience: Experience[],
+  education: Experience[],
   skills: string,
+  occupation: string
+}
+
+export interface Experience {
+  startDate?: Date;
+  endDate?: Date;
+  title: string;
+  description: string;
+  company: string;
 }
