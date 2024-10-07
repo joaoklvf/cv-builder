@@ -12,7 +12,9 @@
     "cv-builder": "file:",
     "next": "14.2.13",
     "react": "^18",
-    "react-dom": "^18"
+    "react-datepicker": "^7.4.0",
+    "react-dom": "^18",
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@types/node": "^20",
