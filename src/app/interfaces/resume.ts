@@ -6,7 +6,8 @@ export interface Resume {
   experience: Experience[],
   education: Experience[],
   skills: string,
-  occupation: string
+  occupation: string,
+  picture: string | null
 }
 
 export interface Experience {

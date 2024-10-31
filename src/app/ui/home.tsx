@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyboardEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
 import { useResumeContext } from '../providers/resume-provider';
 import { getPhoneMask } from '../utils/masks';
 import EducationComponent from './experiences/education';
@@ -22,7 +22,8 @@ export default function HomeComponent() {
 
   const { resume, setResume } = useResumeContext();
 
-  const onSubmitForm = () => {
+  const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setFormModalOpen(true);
   };
 
@@ -37,12 +38,39 @@ export default function HomeComponent() {
     setResume(newResume);
   };
 
+  function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target?.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setResume({ ...resume, picture: url }); // Armazena a URL temporária da imagem no contexto
+    }
+  }
+
   return (
     <div className="min-h-screen pb-8 bg-gradient-to-b from-slate-600 to-slate-500">
       <button type="button" onClick={fakeResume}>Teste</button>
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 border border-gray-300">
         <h1 className="text-black text-3xl font-bold text-center mb-6">Gerador de Currículos</h1>
         <form onSubmit={onSubmitForm}>
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-lg font-medium text-black">
+              Escolha a foto (opcional)
+            </label>
+            <label className="block">
+              <span className="sr-only">Escolha a foto (opcional)</span>
+              <input
+                accept="image/*"
+                type="file"
+                className="block w-full text-sm text-slate-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-violet-50 file:text-violet-700
+                hover:file:bg-violet-100"
+                onChange={handleImageChange}
+              />
+            </label>
+          </div>
           <div className="mb-4">
             <label htmlFor="name" className="block text-lg font-medium text-black">
               Nome Completo
@@ -183,9 +211,8 @@ export default function HomeComponent() {
             </section>
           </div>
           <button
-            type="button"
+            type="submit"
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200 ease-in-out"
-            onClick={onSubmitForm}
           >
             Gerar Currículo
           </button>

@@ -23,7 +23,8 @@ export default function ResumeProvider({
     occupation: '',
     phone: '',
     skills: '',
-    summary: ''
+    summary: '',
+    picture: null
   });
 
   return (
