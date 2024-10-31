@@ -170,12 +170,11 @@ export default function HomeComponent() {
               <Modal
                 open={modalExperienceOpen}
                 setOpen={setModalExperienceOpen}
-                children={
-                  <ExperienceComponent
-                    closeModal={() => setModalExperienceOpen(false)}
-                  />
-                }
-              />
+              >
+                <ExperienceComponent
+                  closeModal={() => setModalExperienceOpen(false)}
+                />
+              </Modal>
             </section>
           </div>
           <div className="mb-4">
@@ -203,12 +202,11 @@ export default function HomeComponent() {
               <Modal
                 open={modalOpen}
                 setOpen={setModalOpen}
-                children={
-                  <EducationComponent
-                    closeModal={() => setModalOpen(false)}
-                  />
-                }
-              />
+              >
+                <EducationComponent
+                  closeModal={() => setModalOpen(false)}
+                />
+              </Modal>
             </section>
           </div>
           <button
