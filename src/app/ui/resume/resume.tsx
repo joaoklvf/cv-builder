@@ -7,6 +7,7 @@ import {
 import { useResumeContext } from '@/app/providers/resume-provider';
 import { redirect } from 'next/navigation';
 import { Container } from './styles';
+import Image from 'next/image';
 
 export default function ResumeComponent() {
   const { resume } = useResumeContext();
@@ -24,7 +25,7 @@ export default function ResumeComponent() {
           <header className="text-center mb-12">
             {resume.picture && (
               <div className="text-center mb-4">
-                <img src={resume.picture} alt="Imagem do usuário" className="absolute mx-auto rounded-full w-32 h-32 object-cover" />
+                <Image src={resume.picture} alt="Imagem do usuário" className="absolute mx-auto rounded-full w-32 h-32 object-cover" />
               </div>
             )}
             <h1 className="text-4xl font-bold">{resume.name?.toUpperCase()}</h1>

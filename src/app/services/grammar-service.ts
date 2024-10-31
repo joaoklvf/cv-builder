@@ -4,7 +4,6 @@ import { Resume } from "../interfaces/resume";
 
 export const getRevisedText = async (resume: Resume) => {
   console.log('request')
-  let texto: string | null = null;
   const text = getGrammarTextRequest(resume);
 
   try {
@@ -32,5 +31,5 @@ export const getRevisedText = async (resume: Resume) => {
     console.error('Erro ao chamar a API:', error);
   }
 
-  return texto;
+  return null;
 }

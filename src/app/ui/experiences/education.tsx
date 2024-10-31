@@ -1,6 +1,5 @@
-import { cookies } from "next/headers";
-import { FormEvent, useState } from "react";
-import { Experience, Resume } from "../../interfaces/resume";
+import { useState } from "react";
+import { Experience } from "../../interfaces/resume";
 import { useResumeContext } from "../../providers/resume-provider";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { CorrectionDto } from "@/app/interfaces/correction";
 import { SuggestionsComponent } from "./suggestions";
+import { Experience } from "@/app/interfaces/resume";
 
 interface GrammarCorrectionsModalProps {
   isOpen: boolean;
@@ -59,7 +60,7 @@ export const GrammarCorrectionsModal = ({ closeModal, isOpen }: GrammarCorrectio
   const saveButtonLabel = isLastElement ? 'Salvar' : 'Próximo';
 
   const saveCorrectionSelected = () => {
-    const sugestaoAceita = (document.querySelector(`input[name="sugestao${currentIndex}"]:checked`) as any)?.value;
+    const sugestaoAceita = (document.querySelector(`input[name="sugestao${currentIndex}"]:checked`) as HTMLInputElement)?.value;
     const newGrammars = grammarCorrections.map((x, index) => {
       if (index === currentIndex)
         x.replacements = x.replacements.map(y => {
@@ -99,8 +100,8 @@ export const GrammarCorrectionsModal = ({ closeModal, isOpen }: GrammarCorrectio
     const parsedResume = await JSON.parse(jsonText);
     const newResume = {
       ...parsedResume,
-      education: parsedResume.education.map((x: any) => ({ ...x, endDate: new Date(x.endDate), startDate: new Date(x.startDate) })),
-      experience: parsedResume.experience.map((x: any) => ({ ...x, endDate: new Date(x.endDate), startDate: new Date(x.startDate) })),
+      education: parsedResume.education.map((x: Experience) => ({ ...x, endDate: new Date(x.endDate!), startDate: new Date(x.startDate!) })),
+      experience: parsedResume.experience.map((x: Experience) => ({ ...x, endDate: new Date(x.endDate!), startDate: new Date(x.startDate!) })),
     };
 
     setLoading(true);

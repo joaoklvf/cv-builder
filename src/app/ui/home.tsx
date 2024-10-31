@@ -8,6 +8,7 @@ import ExperienceComponent from './experiences/experiences';
 import { GrammarCorrectionsModal } from './grammar-modal/modal';
 import Modal from './modals/modal';
 import FakeJson from '@/app/lib/fake-resume.json';
+import { Experience } from '../interfaces/resume';
 
 const onPhoneInputKeyUp = ({ key, currentTarget }: KeyboardEvent<HTMLInputElement>) => {
   if (key === "Backspace" || key === "Delete" || Number.isNaN(key)) return;
@@ -31,8 +32,8 @@ export default function HomeComponent() {
     const fakeResume = await JSON.parse(JSON.stringify(FakeJson));
     const newResume = {
       ...fakeResume,
-      education: fakeResume.education.map((x: any) => ({ ...x, endDate: new Date(x.endDate), startDate: new Date(x.startDate) })),
-      experience: fakeResume.experience.map((x: any) => ({ ...x, endDate: new Date(x.endDate), startDate: new Date(x.startDate) })),
+      education: fakeResume.education.map((x: Experience) => ({ ...x, endDate: new Date(x.endDate!), startDate: new Date(x.startDate!) })),
+      experience: fakeResume.experience.map((x: Experience) => ({ ...x, endDate: new Date(x.endDate!), startDate: new Date(x.startDate!) })),
     };
 
     setResume(newResume);
