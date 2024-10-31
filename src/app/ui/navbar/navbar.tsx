@@ -24,11 +24,11 @@ export const NavBar = () => {
     "max-h-40 opacity-100 scale-100" : "max-h-0 opacity-0 scale-95";
 
   const MobileLinks = () => links.map(x =>
-    <Link href={x.href} className={x.href === pathname ? "rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" : "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} aria-current="page">{x.title}</Link>
+    <Link key={x.href} href={x.href} className={x.href === pathname ? "rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" : "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} aria-current="page">{x.title}</Link>
   );
 
   const DesktopLinks = () => links.map(x =>
-    <Link href={x.href} className={x.href === pathname ? "block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" : "block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} aria-current="page">{x.title}</Link>
+    <Link key={x.href} href={x.href} className={x.href === pathname ? "block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" : "block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} aria-current="page">{x.title}</Link>
   );
 
   return (
