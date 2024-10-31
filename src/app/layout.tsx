@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import ResumeProvider from "./providers/resume-provider";
+import { NavBar } from "./ui/navbar/navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,9 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        <ResumeProvider>{children}</ResumeProvider>
+        <ResumeProvider>
+          <NavBar></NavBar>
+          {children}
+        </ResumeProvider>
       </body>
     </html>
   );

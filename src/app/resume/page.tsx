@@ -35,8 +35,8 @@ export default function ResumePage() {
         <ul>
           {resume.education.map((x, index) => (
             <li className="mb-4" key={index}>
-              <strong>{x.startDate!.getFullYear()} - {x.endDate!.getFullYear()} | {x.title}</strong>
-              <p>{x.description}</p>
+              <strong>{x.startDate!.getFullYear()} - {x.endDate!.getFullYear()} | {x.company}</strong>
+              <p>{x.title}</p>
             </li>
           ))}
         </ul>

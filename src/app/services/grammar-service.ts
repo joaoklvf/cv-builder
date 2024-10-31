@@ -1,7 +1,11 @@
+import { getGrammarTextRequest } from "../builders/grammar-request-builder";
 import { Correction } from "../interfaces/correction";
+import { Resume } from "../interfaces/resume";
 
-export const getRevisedText = async (text: string) => {
+export const getRevisedText = async (resume: Resume) => {
+  console.log('request')
   let texto: string | null = null;
+  const text = getGrammarTextRequest(resume);
 
   try {
     const response = await fetch('https://api.languagetoolplus.com/v2/check', {
@@ -22,13 +26,7 @@ export const getRevisedText = async (text: string) => {
 
     const data = await response.json();
     const matches = data.matches as Correction[];
-
-    texto = text;
-    matches.forEach(({ context, replacements }) => {
-      const indexFinal = context.offset + context.length;
-      const elementoParaCorrigir = context.text.substring(context.offset, indexFinal);
-      texto = texto!.replace(elementoParaCorrigir, replacements[0].value);
-    });
+    return matches.filter(x => x.shortMessage === "Erro ortográfico");
   }
   catch (error) {
     console.error('Erro ao chamar a API:', error);

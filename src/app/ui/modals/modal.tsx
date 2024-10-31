@@ -15,7 +15,7 @@ export default function Modal({ open, setOpen, children }: ModalProps) {
           <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div className="">
               <div onClick={() => setOpen(false)} role='button' className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 8L8 16M8 8L16 16" stroke="#FF0000" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </div>

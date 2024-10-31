@@ -1,0 +1,33 @@
+{
+  "name": "João Silva",
+  "email": "joao.silva@email.com",
+  "phone": "123-456-7890",
+  "summary": "Profissional com ampla esperiência em desenvolvimento de softwares e lideransa de equipes tecnicas.",
+  "experience": [
+    {
+      "startDate": "2020-01-01",
+      "endDate": "2023-06-06",
+      "title": "Desenvolvedor Senior",
+      "description": "Responsavel pelo desenvolvimiento de projetos front-end e back-end utilizando tecnologias modernas.",
+      "company": "Tech Solutions Ltda"
+    },
+    {
+      "startDate": "2017-02-12",
+      "endDate": "2019-12-12",
+      "title": "Analista de Sistemas",
+      "description": "Analise e desenvovimento de solucoes integradas para clientes no setor de saúde.",
+      "company": "Global Health"
+    }
+  ],
+  "education": [
+    {
+      "startDate": "2014-02-01",
+      "endDate": "2018-12-01",
+      "title": "Bacharelado em Ciência da Computação",
+      "description": "Curso focado em fundamentos da computação e desenvolvimiento de software.",
+      "company": "Universidade Federal de Tecnologia"
+    }
+  ],
+  "skills": "JavaScript, TypeScript, React, Node.js, Arquitetura de Software",
+  "occupation": "Engenheiro de Software"
+}
