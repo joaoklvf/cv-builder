@@ -7,15 +7,23 @@ import { Container } from "./styles";
 import { HOJE } from "@/app/lib/constants";
 
 interface EducationComponentProps {
-  closeModal: () => void
+  closeModal: () => void,
+  editEducation: Experience | null
 }
 
-export default function EducationComponent({ closeModal }: EducationComponentProps) {
-  const { setResume } = useResumeContext();
-  const [education, setEducation] = useState<Experience>({ company: '', description: '', title: '' });
+export default function EducationComponent({ closeModal, editEducation }: EducationComponentProps) {
+  const { setResume, resume } = useResumeContext();
+  const [education, setEducation] = useState<Experience>(editEducation ?? { company: '', description: '', title: '', id: 0 });
 
   const addEducation = () => {
-    setResume(resume => ({ ...resume, education: [...resume.education, education] }));
+    if (education.id === 0) {
+      setResume(res => ({ ...res, education: [...res.education, { ...education, id: res.education.length + 1 }] }));
+    }
+    else {
+      const newEducations = [...resume.education];
+      newEducations.splice(education.id - 1, 1, { ...education });
+      setResume(res => ({ ...res, education: newEducations }));
+    }
     closeModal();
   }
 
@@ -86,7 +94,7 @@ export default function EducationComponent({ closeModal }: EducationComponentPro
           onChange={(e) => setEducation(x => ({ ...x, company: e.target.value }))}
         />
       </div>
-      <button type="button" onClick={addEducation} className="bg-sky-500 hover:bg-sky-700 transition rounded-full button w-full h-8 block text-sm font-medium text-white mb-1">Adicionar</button>
+      <button type="button" onClick={addEducation} className="bg-sky-500 hover:bg-sky-700 transition rounded-full button w-full h-8 block text-sm font-medium text-white mb-1">Salvar</button>
     </Container>
   );
 }

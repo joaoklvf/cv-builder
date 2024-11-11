@@ -7,15 +7,26 @@ import { Container } from "./styles";
 import { HOJE } from "@/app/lib/constants";
 
 interface ExperienceComponentProps {
-  closeModal: () => void
+  closeModal: () => void,
+  editExperience: Experience | null
 }
 
-export default function ExperienceComponent({ closeModal }: ExperienceComponentProps) {
-  const { setResume } = useResumeContext();
-  const [experience, setExperience] = useState<Experience>({ company: '', description: '', title: '' });
+export default function ExperienceComponent({ closeModal, editExperience }: ExperienceComponentProps) {
+  const { setResume, resume } = useResumeContext();
+  const [experience, setExperience] = useState<Experience>(editExperience ?? { company: '', description: '', title: '', id: 0 });
 
   const addExperience = () => {
-    setResume(resume => ({ ...resume, experience: [...resume.experience, experience] }));
+    if (experience.id === 0) {
+      setResume(res => ({ ...res, experience: [...res.experience, { ...experience, id: res.experience.length + 1 }] }));
+    }
+    else {
+      console.log(experience.id)
+      const newExperiences = [...resume.experience];
+      console.log(newExperiences)
+      newExperiences.splice(experience.id - 1, 1, { ...experience });
+      console.log(newExperiences)
+      setResume(res => ({ ...res, experience: newExperiences }));
+    }
     closeModal();
   }
 
@@ -101,7 +112,7 @@ export default function ExperienceComponent({ closeModal }: ExperienceComponentP
           onChange={(e) => setExperience(x => ({ ...x, description: e.target.value }))}
         ></textarea>
       </div>
-      <button type="button" onClick={addExperience} className="bg-sky-500 hover:bg-sky-700 transition rounded-full button w-full h-8 block text-sm font-medium text-white mb-1">Adicionar</button>
+      <button type="button" onClick={addExperience} className="bg-sky-500 hover:bg-sky-700 transition rounded-full button w-full h-8 block text-sm font-medium text-white mb-1">Salvar</button>
     </Container>
   );
 }

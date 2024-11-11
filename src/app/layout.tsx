@@ -15,6 +15,12 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+const dancingScriptBold = localFont({
+  src: "./fonts/DancingScript-Bold.ttf",
+  variable: "--font-dancing-script-bold",
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: {
     template: '%s | CV Builder',
@@ -32,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} ${dancingScriptBold.variable} antialiased `}
       >
         <ResumeProvider>
           <NavBar></NavBar>

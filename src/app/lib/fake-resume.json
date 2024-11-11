@@ -9,14 +9,16 @@
       "endDate": "2023-06-06",
       "title": "Desenvolvedor Senior",
       "description": "Responsavel pelo desenvolvimiento de projetos front-end e back-end utilizando tecnologias modernas.",
-      "company": "Tech Solutions Ltda"
+      "company": "Tech Solutions Ltda",
+      "id": 1
     },
     {
       "startDate": "2017-02-12",
       "endDate": "2019-12-12",
       "title": "Analista de Sistemas",
       "description": "Analise e desenvovimento de solucoes integradas para clientes no setor de saúde.",
-      "company": "Global Health"
+      "company": "Global Health",
+      "id": 2
     }
   ],
   "education": [
@@ -25,7 +27,8 @@
       "endDate": "2018-12-01",
       "title": "Bacharelado em Ciência da Computação",
       "description": "Curso focado em fundamentos da computação e desenvolvimiento de software.",
-      "company": "Universidade Federal de Tecnologia"
+      "company": "Universidade Federal de Tecnologia",
+      "id": 1
     }
   ],
   "skills": "JavaScript, TypeScript, React, Node.js, Arquitetura de Software",

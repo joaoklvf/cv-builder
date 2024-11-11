@@ -9,6 +9,7 @@ import { GrammarCorrectionsModal } from './grammar-modal/modal';
 import Modal from './modals/modal';
 import FakeJson from '@/app/lib/fake-resume.json';
 import { Experience } from '../interfaces/resume';
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 const onPhoneInputKeyUp = ({ key, currentTarget }: KeyboardEvent<HTMLInputElement>) => {
   if (key === "Backspace" || key === "Delete" || Number.isNaN(key)) return;
@@ -20,6 +21,8 @@ export default function HomeComponent() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalExperienceOpen, setModalExperienceOpen] = useState(false);
   const [formModalOpen, setFormModalOpen] = useState(false);
+  const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
+  const [editingEducation, setEditingEducation] = useState<Experience | null>(null);
 
   const { resume, setResume } = useResumeContext();
 
@@ -47,14 +50,20 @@ export default function HomeComponent() {
     }
   }
 
+  const onRemoveClick = (lista: Experience[], index: number) => {
+    const newList = [...lista];
+    newList.splice(index, 1);
+    return newList;
+  }
+
   return (
-    <div className="min-h-screen pb-8 bg-gradient-to-b from-slate-600 to-slate-500">
+    <div className="min-h-screen pb-8 bg-gradient-to-b from-violet-100 to-violet-300">
       <button type="button" onClick={fakeResume}>Teste</button>
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 border border-gray-300">
-        <h1 className="text-black text-3xl font-bold text-center mb-6">Gerador de Currículos</h1>
+        <p className="text-lg text-black font-bold text-center mb-6">Gerador de Currículos</p>
         <form onSubmit={onSubmitForm}>
           <div className="mb-4">
-            <label htmlFor="name" className="block text-lg font-medium text-black">
+            <label htmlFor="name" className="block font-medium text-black">
               Escolha a foto (opcional)
             </label>
             <label className="block">
@@ -73,49 +82,49 @@ export default function HomeComponent() {
             </label>
           </div>
           <div className="mb-4">
-            <label htmlFor="name" className="block text-lg font-medium text-black">
+            <label htmlFor="name" className="block font-medium text-black">
               Nome Completo
             </label>
             <input
               type="text"
               name="name"
               id="name"
-              className="h-10 text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2"
+              className="h-10 text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
               required
               value={resume.name}
               onChange={e => setResume(rs => ({ ...rs, name: e.target.value }))}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="occupation" className="block text-lg font-medium text-black">
+            <label htmlFor="occupation" className="block font-medium text-black">
               Profissão
             </label>
             <input
               type="text"
               name="occupation"
               id="occupation"
-              className="h-10 text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2"
+              className="h-10 text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
               required
               value={resume.occupation}
               onChange={e => setResume(rs => ({ ...rs, occupation: e.target.value }))}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-lg font-medium text-black">
+            <label htmlFor="email" className="block font-medium text-black">
               Email
             </label>
             <input
               type="email"
               name="email"
               id="email"
-              className="h-10 text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2"
+              className="h-10 text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
               required
               value={resume.email}
               onChange={e => setResume(rs => ({ ...rs, email: e.target.value }))}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="phone" className="block text-lg font-medium text-black">
+            <label htmlFor="phone" className="block font-medium text-black">
               Telefone
             </label>
             <input
@@ -123,7 +132,7 @@ export default function HomeComponent() {
               name="phone"
               id="phone"
               onKeyUp={onPhoneInputKeyUp}
-              className="h-10 text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2"
+              className="h-10 text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
               required
               maxLength={15}
               value={resume.phone}
@@ -131,14 +140,14 @@ export default function HomeComponent() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="summary" className="block text-lg font-medium text-black">
+            <label htmlFor="summary" className="block font-medium text-black">
               Resumo Profissional
             </label>
             <textarea
               name="summary"
               id="summary"
               rows={4}
-              className="text-black text-lg mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
+              className="text-black mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2"
               required
               value={resume.summary}
               onChange={e => setResume(rs => ({ ...rs, summary: e.target.value }))}
@@ -147,32 +156,47 @@ export default function HomeComponent() {
           <div className="mb-4">
             <section className="mb-8">
               <div className="flex gap-4 items-center">
-                <label className="block text-lg font-medium text-black">
+                <label className="block font-medium text-black">
                   Experiência Profissional
                 </label>
                 <button
                   type="button"
-                  className="bg-sky-500 hover:bg-sky-700 transition-transform transform hover:scale-105 rounded-full text-white px-2 py-1"
+                  className="font-medium text-sm transition-transform transform hover:scale-105 rounded-full text-white px-2 py-1"
+                  style={{ backgroundColor: '#f5f3ff', color: '#773edf' }}
                   onClick={() => setModalExperienceOpen(x => !x)}
                 >
                   Adicionar
                 </button>
               </div>
-              <ul>
-                {resume.experience.map((x, index) => (
-                  <li className="mb-4" key={index}>
+              {resume.experience.map((x, index) => (
+                <div className="mb-4 flex justify-between" key={index}>
+                  <div>
                     <p>{x.startDate!.getFullYear()} - {x.endDate!.getFullYear()} | {x.company}</p>
                     <p>{x.title}</p>
                     <p>{x.description}</p>
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                  <div className='flex'>
+                    <button type="button" onClick={() => {
+                      setEditingExperience({ ...x });
+                      setModalExperienceOpen(true);
+                    }}>{<PencilSquareIcon width={24} color='#0800ff' />}</button>
+                    <button type="button" onClick={() => {
+                      const newExperience = onRemoveClick(resume.experience, index);
+                      setResume(re => ({ ...re, experience: newExperience }))
+                    }}>{<TrashIcon width={24} color='#ff0000' />}</button>
+                  </div>
+                </div>
+              ))}
               <Modal
                 open={modalExperienceOpen}
                 setOpen={setModalExperienceOpen}
               >
                 <ExperienceComponent
-                  closeModal={() => setModalExperienceOpen(false)}
+                  closeModal={() => {
+                    setModalExperienceOpen(false);
+                    setEditingExperience(null);
+                  }}
+                  editExperience={editingExperience}
                 />
               </Modal>
             </section>
@@ -180,31 +204,46 @@ export default function HomeComponent() {
           <div className="mb-4">
             <section className="mb-8">
               <div className="flex gap-4 items-center">
-                <label className="block text-lg font-medium text-black">
+                <label className="block font-medium text-black">
                   Formação
                 </label>
                 <button
                   type="button"
-                  className="bg-sky-500 hover:bg-sky-700 transition-transform transform hover:scale-105 rounded-full text-white px-2 py-1"
+                  className="font-medium text-sm transition-transform transform hover:scale-105 rounded-full text-white px-2 py-1"
+                  style={{ backgroundColor: '#f5f3ff', color: '#773edf' }}
                   onClick={() => setModalOpen(x => !x)}
                 >
                   Adicionar
                 </button>
               </div>
-              <ul>
-                {resume.education.map((x, index) => (
-                  <li className="mb-4" key={index}>
+              {resume.education.map((x, index) => (
+                <div className="mb-4 flex justify-between" key={index}>
+                  <div>
                     <p>{x.startDate!.getFullYear()} - {x.endDate!.getFullYear()} | {x.company}</p>
                     <p>{x.title}</p>
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                  <div className='flex'>
+                    <button type="button" onClick={() => {
+                      setEditingEducation({ ...x });
+                      setModalOpen(true);
+                    }}>{<PencilSquareIcon width={24} color='#0800ff' />}</button>
+                    <button type="button" onClick={() => {
+                      const newEducation = onRemoveClick(resume.education, index);
+                      setResume(re => ({ ...re, education: newEducation }))
+                    }}>{<TrashIcon width={24} color='#ff0000' />}</button>
+                  </div>
+                </div>
+              ))}
               <Modal
                 open={modalOpen}
                 setOpen={setModalOpen}
               >
                 <EducationComponent
-                  closeModal={() => setModalOpen(false)}
+                  closeModal={() => {
+                    setModalOpen(false);
+                    setEditingEducation(null);
+                  }}
+                  editEducation={editingEducation}
                 />
               </Modal>
             </section>
@@ -212,6 +251,7 @@ export default function HomeComponent() {
           <button
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200 ease-in-out"
+            style={{ color: '#f5f3ff', backgroundColor: '#773edf' }}
           >
             Gerar Currículo
           </button>

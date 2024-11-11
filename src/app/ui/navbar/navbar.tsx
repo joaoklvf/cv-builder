@@ -1,9 +1,9 @@
 'use client'
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Container } from "./styles";
 
 const links = [
   { href: '/', title: 'Página Inicial' },
@@ -25,16 +25,16 @@ export const NavBar = () => {
     "max-h-40 opacity-100 scale-100" : "max-h-0 opacity-0 scale-95";
 
   const MobileLinks = () => links.map(x =>
-    <Link key={x.href} href={x.href} className={x.href === pathname ? "rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" : "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} aria-current="page">{x.title}</Link>
+    <Link key={x.href} href={x.href} className={x.href === pathname ? "rounded-md bg-violet-200 px-3 py-2 text-sm font-medium text-violet-600" : "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-violet-400 hover:text-white"} aria-current="page">{x.title}</Link>
   );
 
   const DesktopLinks = () => links.map(x =>
-    <Link key={x.href} href={x.href} className={x.href === pathname ? "block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" : "block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"} aria-current="page">{x.title}</Link>
+    <Link key={x.href} href={x.href} className={x.href === pathname ? "block rounded-md bg-violet-200 px-3 py-2 text-base font-medium text-white" : "block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-violet-400 hover:text-white"} aria-current="page">{x.title}</Link>
   );
 
   return (
-    <nav className="bg-gray-800 unprintable">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <nav className="unprintable" style={{ backgroundColor: '#773edf' }}>
+      <Container className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <button
@@ -52,7 +52,7 @@ export const NavBar = () => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Image className="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+              <p className="text-white text-logo">CV Builder</p>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
@@ -61,7 +61,7 @@ export const NavBar = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Menu Mobile com Animação */}
       <div

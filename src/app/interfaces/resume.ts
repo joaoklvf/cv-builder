@@ -16,4 +16,5 @@ export interface Experience {
   title: string;
   description: string;
   company: string;
+  id: number;
 }
