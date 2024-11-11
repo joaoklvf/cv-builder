@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Container } from "./styles";
+import { NavContainer } from "./styles";
 
 const links = [
   { href: '/', title: 'Página Inicial' },
@@ -33,8 +33,8 @@ export const NavBar = () => {
   );
 
   return (
-    <nav className="unprintable" style={{ backgroundColor: '#773edf' }}>
-      <Container className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <NavContainer className="unprintable">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <button
@@ -61,7 +61,7 @@ export const NavBar = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </div>
 
       {/* Menu Mobile com Animação */}
       <div
@@ -72,6 +72,6 @@ export const NavBar = () => {
           <DesktopLinks />
         </div>
       </div>
-    </nav>
+    </NavContainer>
   );
 };

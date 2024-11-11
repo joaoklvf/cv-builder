@@ -1,15 +1,16 @@
 "use client";
 
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
-import { useResumeContext } from '../providers/resume-provider';
-import { getPhoneMask } from '../utils/masks';
-import EducationComponent from './experiences/education';
-import ExperienceComponent from './experiences/experiences';
-import { GrammarCorrectionsModal } from './grammar-modal/modal';
-import Modal from './modals/modal';
+import { useResumeContext } from '../../providers/resume-provider';
+import { getPhoneMask } from '../../utils/masks';
+import EducationComponent from '../experiences/education';
+import ExperienceComponent from '../experiences/experiences';
+import { GrammarCorrectionsModal } from '../grammar-modal/modal';
+import Modal from '../modals/modal';
 import FakeJson from '@/app/lib/fake-resume.json';
-import { Experience } from '../interfaces/resume';
+import { Experience } from '../../interfaces/resume';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { AddExperienceButton } from './styles';
 
 const onPhoneInputKeyUp = ({ key, currentTarget }: KeyboardEvent<HTMLInputElement>) => {
   if (key === "Backspace" || key === "Delete" || Number.isNaN(key)) return;
@@ -159,14 +160,13 @@ export default function HomeComponent() {
                 <label className="block font-medium text-black">
                   Experiência Profissional
                 </label>
-                <button
+                <AddExperienceButton
                   type="button"
                   className="font-medium text-sm transition-transform transform hover:scale-105 rounded-full text-white px-2 py-1"
-                  style={{ backgroundColor: '#f5f3ff', color: '#773edf' }}
                   onClick={() => setModalExperienceOpen(x => !x)}
                 >
                   Adicionar
-                </button>
+                </AddExperienceButton>
               </div>
               {resume.experience.map((x, index) => (
                 <div className="mb-4 flex justify-between" key={index}>
@@ -207,14 +207,13 @@ export default function HomeComponent() {
                 <label className="block font-medium text-black">
                   Formação
                 </label>
-                <button
+                <AddExperienceButton
                   type="button"
                   className="font-medium text-sm transition-transform transform hover:scale-105 rounded-full text-white px-2 py-1"
-                  style={{ backgroundColor: '#f5f3ff', color: '#773edf' }}
                   onClick={() => setModalOpen(x => !x)}
                 >
                   Adicionar
-                </button>
+                </AddExperienceButton>
               </div>
               {resume.education.map((x, index) => (
                 <div className="mb-4 flex justify-between" key={index}>
